@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Terms and Conditions — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="terms-section">
+    <div class="terms-inner">
+        <h1 class="terms-title">Terms and Conditions</h1>
+
+        <div class="terms-content">
+            <section class="terms-section-item">
+                <h2 class="terms-section-title">1. Acceptance of Terms</h2>
+                <p class="terms-section-body">
+                    By accessing or using Spendly ("Service"), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use the Service.
+                </p>
+            </section>
+
+            <section class="terms-section-item">
+                <h2 class="terms-section-title">2. Use of Service</h2>
+                <p class="terms-section-body">
+                    You may use the Service for personal, non-commercial purposes only. You agree not to reproduce, duplicate, copy, sell, resell, or exploit any portion of the Service without express written permission from Spendly.
+                </p>
+            </section>
+
+            <section class="terms-section-item">
+                <h2 class="terms-section-title">3. User Data</h2>
+                <p class="terms-section-body">
+                    We collect and store your expense data to provide the Service. Your data is stored securely and is not shared with third parties except as necessary to provide the Service or as required by law. You retain ownership of your data and can export or delete it at any time.
+                </p>
+            </section>
+
+            <section class="terms-section-item">
+                <h2 class="terms-section-title">4. Limitations of Liability</h2>
+                <p class="terms-section-body">
+                    To the maximum extent permitted by law, Spendly shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from your use of the Service.
+                </p>
+            </section>
+
+            <section class="terms-section-item">
+                <h2 class="terms-section-title">5. Changes to Terms</h2>
+                <p class="terms-section-body">
+                    Spendly reserves the right, at its sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
+                </p>
+            </section>
+        </div>
+
+        <div class="terms-footer">
+            <p class="terms-footer-text">
+                Last updated: October 5, 2026
+            </p>
+            <a href="{{ url_for('landing') }}" class="btn-ghost">← Back to Home</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
