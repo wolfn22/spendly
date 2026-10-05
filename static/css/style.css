@@ -369,6 +369,65 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ------------------------------------------------------------------ */
+/* Terms section                                                      */
+/* ------------------------------------------------------------------ */
+
+.terms-section {
+    background: var(--paper-warm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem;
+}
+
+.terms-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.terms-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+}
+
+.terms-content {
+    margin-bottom: 2rem;
+}
+
+.terms-section-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+}
+
+.terms-section-title:first-child {
+    margin-top: 0;
+}
+
+.terms-section-body {
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.terms-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-soft);
+}
+
+.terms-footer-text {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    margin-bottom: 1.5rem;
+}
+
+/* ------------------------------------------------------------------ */
 /* Auth pages                                                          */
 /* ------------------------------------------------------------------ */
 
