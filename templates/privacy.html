@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="terms-section">
+    <div class="terms-inner">
+        <h1 class="terms-title">Privacy Policy</h1>
+
+        <div class="terms-content">
+            <section>
+                <h2 class="terms-section-title">1. Data We Collect</h2>
+                <p class="terms-section-body">
+                    We collect information you provide directly to us, such as your name, email address, and expense data (amounts, categories, dates, and descriptions). We also automatically collect certain information when you use our service, including IP address, browser type, and usage patterns.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="terms-section-title">2. How We Use Your Data</h2>
+                <p class="terms-section-body">
+                    We use your data to provide and improve our service, personalize your experience, communicate with you about updates or security notices, and analyze usage trends to enhance functionality. Your expense data is used solely to power the features you interact with in the app.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="terms-section-title">3. Data Storage</h2>
+                <p class="terms-section-body">
+                    Your data is stored securely on our servers using industry-standard encryption. We retain your data as long as your account is active or as needed to provide our service. You may delete your data and account at any time through the app settings.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="terms-section-title">4. Third Party Services</h2>
+                <p class="terms-section-body">
+                    We may use trusted third-party services for hosting, analytics, and payment processing. These providers have access to your data only as needed to perform their services and are obligated to maintain confidentiality. We do not sell your personal data to third parties.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="terms-section-title">5. Contact Us</h2>
+                <p class="terms-section-body">
+                    If you have any questions about this Privacy Policy or our data practices, please contact us at privacy@spendly.app. We will respond to your inquiry within a reasonable timeframe.
+                </p>
+            </section>
+        </div>
+
+        <div class="terms-footer">
+            <p class="terms-footer-text">
+                Last updated: October 5, 2026
+            </p>
+            <a href="{{ url_for('landing') }}" class="btn-ghost">← Back to Home</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
