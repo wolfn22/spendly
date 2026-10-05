@@ -1,6 +1,7 @@
 import sqlite3
 from pathlib import Path
 from flask import g
+from werkzeug.security import generate_password_hash
 
 DATABASE = 'expense_tracker.db'
 
@@ -21,38 +22,29 @@ def init_db():
     db = get_db()
 
     # Create users table
-    db.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
+    db.execute("""CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password_hash TEXT NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    )""")
 
     # Create expenses table
-    db.execute('''
-        CREATE TABLE IF NOT EXISTS expenses (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            amount REAL NOT NULL,
-            category TEXT NOT NULL,
-            description TEXT,
-            date DATE NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
-        )
-    ''')
+    db.execute("""CREATE TABLE IF NOT EXISTS expenses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        amount REAL NOT NULL,
+        category TEXT NOT NULL,
+        description TEXT,
+        date TEXT NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    )""")
 
     # Create indexes for better query performance
-    db.execute('''
-        CREATE INDEX IF NOT EXISTS idx_expenses_user_id ON expenses(user_id)
-    ''')
-
-    db.execute('''
-        CREATE INDEX IF NOT EXISTS idx_expenses_date ON expenses(date)
-    ''')
+    db.execute("CREATE INDEX IF NOT EXISTS idx_expenses_user_id ON expenses(user_id)")
+    db.execute("CREATE INDEX IF NOT EXISTS idx_expenses_date ON expenses(date)")
 
     db.commit()
 
@@ -64,47 +56,43 @@ def seed_db():
     cursor = db.execute('SELECT COUNT(*) FROM users')
     user_count = cursor.fetchone()[0]
 
-    if user_count == 0:
-        # Insert sample users
-        sample_users = [
-            ('Nitish Kumar', 'nitish@example.com', 'hashed_password_1'),
-            ('Priya Sharma', 'priya@example.com', 'hashed_password_2'),
-            ('Arjun Singh', 'arjun@example.com', 'hashed_password_3')
-        ]
+    if user_count > 0:
+        return  # Prevent duplicate seeding
 
-        db.executemany(
-            'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-            sample_users
-        )
+    # Hash the password using werkzeug
+    hashed_password = generate_password_hash('demo123')
 
-        # Get the user IDs for seeding expenses
-        user_ids = [row[0] for row in db.execute('SELECT id FROM users').fetchall()]
+    # Insert exactly one demo user
+    db.execute(
+        'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
+        ('Demo User', 'demo@spendly.com', hashed_password)
+    )
+    user_id = db.execute('SELECT last_insert_rowid()').fetchone()[0]
 
-        # Insert sample expenses
-        sample_expenses = [
-            # Nitish's expenses
-            (user_ids[0], 1250.50, 'Food & Dining', 'Lunch at restaurant', '2026-10-01'),
-            (user_ids[0], 45.00, 'Transport', 'Metro card recharge', '2026-10-02'),
-            (user_ids[0], 1200.00, 'Shopping', 'New shoes', '2026-10-03'),
-            (user_ids[0], 89.99, 'Entertainment', 'Movie tickets', '2026-10-04'),
+    # Insert exactly 8 sample expenses for the demo user
+    sample_expenses = [
+        # Food category
+        (user_id, 1250.50, 'Food', 'Groceries and dining out', '2026-10-05'),
+        # Transport category
+        (user_id, 45.00, 'Transport', 'Metro card recharge', '2026-10-06'),
+        # Bills category
+        (user_id, 2500.00, 'Bills', 'Electricity bill', '2026-10-01'),
+        # Health category
+        (user_id, 150.00, 'Health', 'Pharmacy and vitamins', '2026-10-04'),
+        # Entertainment category
+        (user_id, 89.99, 'Entertainment', 'Movie tickets', '2026-10-03'),
+        # Shopping category (first item)
+        (user_id, 1200.00, 'Shopping', 'Winter jacket', '2026-10-02'),
+        # Shopping category (second item - to make 8 total)
+        (user_id, 2200.00, 'Shopping', 'Winter boots', '2026-10-07'),
+        # Other category
+        (user_id, 500.00, 'Other', None, '2026-10-08')  # NULL description
+    ]
 
-            # Priya's expenses
-            (user_ids[1], 2500.00, 'Utilities', 'Electricity bill', '2026-10-01'),
-            (user_ids[1], 320.00, 'Food & Dining', 'Groceries', '2026-10-02'),
-            (user_ids[1], 150.00, 'Health', 'Pharmacy', '2026-10-03'),
+    db.executemany(
+        'INSERT INTO expenses (user_id, amount, category, description, date) VALUES (?, ?, ?, ?, ?)',
+        sample_expenses
+    )
 
-            # Arjun's expenses
-            (user_ids[2], 1800.00, 'Food & Dining', 'Monthly groceries', '2026-10-01'),
-            (user_ids[2], 500.00, 'Transport', 'Fuel', '2026-10-02'),
-            (user_ids[2], 2200.00, 'Shopping', 'Winter jacket', '2026-10-03'),
-        ]
-
-        db.executemany(
-            'INSERT INTO expenses (user_id, amount, category, description, date) VALUES (?, ?, ?, ?, ?)',
-            sample_expenses
-        )
-
-        db.commit()
-        print("Database seeded with sample data")
-    else:
-        print("Database already contains data, skipping seed")
+    db.commit()
+    print("Database seeded with sample data")

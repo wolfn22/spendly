@@ -15,3 +15,44 @@ Press CTRL+C to quit
 127.0.0.1 - - [05/Oct/2026 18:41:32] "GET / HTTP/1.1" 200 -
 127.0.0.1 - - [05/Oct/2026 18:41:32] "GET /static/css/style.css HTTP/1.1" 304 -
 127.0.0.1 - - [05/Oct/2026 18:41:32] "GET /static/js/main.js HTTP/1.1" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5001
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 179-011-507
+ * Detected change in 'C:\\Users\\edpil\\Downloads\\expense-tracker\\expense-tracker\\database\\db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 179-011-507
+ * Detected change in 'C:\\Users\\edpil\\Downloads\\expense-tracker\\expense-tracker\\test_database.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 179-011-507
+ * Detected change in 'C:\\Users\\edpil\\Downloads\\expense-tracker\\expense-tracker\\test_database.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 179-011-507
+ * Detected change in 'C:\\Users\\edpil\\Downloads\\expense-tracker\\expense-tracker\\database\\db.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 179-011-507
+ * Detected change in 'C:\\Users\\edpil\\Downloads\\expense-tracker\\expense-tracker\\app.py', reloading
+ * Restarting with stat
+Traceback (most recent call last):
+  File "C:\Users\edpil\Downloads\expense-tracker\expense-tracker\app.py", line 67, in <module>
+    init_db()
+    ~~~~~~~^^
+  File "C:\Users\edpil\Downloads\expense-tracker\expense-tracker\database\db.py", line 25, in init_db
+    db.execute('''
+    ~~~~~~~~~~^^^^
+        CREATE TABLE IF NOT EXISTS users (
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        )
+        ^
+    ''')
+    ^^^^
+sqlite3.OperationalError: near "(": syntax error
