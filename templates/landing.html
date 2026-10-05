@@ -18,6 +18,7 @@
         <div class="hero-buttons">
             <a href="{{ url_for('register') }}" class="btn-primary">Get Started Free</a>
             <a href="{{ url_for('login') }}" class="btn-secondary">Sign In</a>
+            <button class="btn-ghost" id="seeHowItWorksBtn">See how it works</button>
         </div>
     </div>
     <div class="hero-visual">
@@ -69,5 +70,22 @@
         <a href="{{ url_for('register') }}" class="btn-primary">Create free account</a>
     </div>
 </section>
+
+    <!-- Modal -->
+    <div class="modal" id="howItWorksModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalCloseBtn">&times;</span>
+            <h2 class="modal-title">How Spendly Works</h2>
+            <div class="modal-body">
+                <!-- YouTube video iframe - using a placeholder video -->
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/placeholder"
+                            title="How Spendly Works" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen id="youtubeVideo"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
